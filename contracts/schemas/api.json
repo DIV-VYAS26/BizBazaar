@@ -1,0 +1,3460 @@
+{
+  "AuthOptions": {
+    "additionalProperties": false,
+    "properties": {
+      "demo_enabled": {
+        "title": "Demo Enabled",
+        "type": "boolean"
+      },
+      "local_inbox_enabled": {
+        "title": "Local Inbox Enabled",
+        "type": "boolean"
+      },
+      "registration_enabled": {
+        "title": "Registration Enabled",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "registration_enabled",
+      "local_inbox_enabled",
+      "demo_enabled"
+    ],
+    "title": "AuthOptions",
+    "type": "object"
+  },
+  "BasketLine": {
+    "additionalProperties": false,
+    "properties": {
+      "product_id": {
+        "format": "uuid",
+        "title": "Product Id",
+        "type": "string"
+      },
+      "quantity": {
+        "maximum": 10000.0,
+        "minimum": 1.0,
+        "title": "Quantity",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "product_id",
+      "quantity"
+    ],
+    "title": "BasketLine",
+    "type": "object"
+  },
+  "Body_upload_transactions_api_v1_transactions_import_post": {
+    "properties": {
+      "file": {
+        "contentMediaType": "application/octet-stream",
+        "title": "File",
+        "type": "string"
+      }
+    },
+    "required": [
+      "file"
+    ],
+    "title": "Body_upload_transactions_api_v1_transactions_import_post",
+    "type": "object"
+  },
+  "CampaignCreate": {
+    "additionalProperties": false,
+    "properties": {
+      "budget_cap_paise": {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Budget Cap Paise",
+        "type": "integer"
+      },
+      "ends_at": {
+        "format": "date-time",
+        "title": "Ends At",
+        "type": "string"
+      },
+      "name": {
+        "maxLength": 120,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "reward_cost_paise": {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Reward Cost Paise",
+        "type": "integer"
+      },
+      "rule_parameters": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/NthRule"
+          },
+          {
+            "$ref": "#/components/schemas/ThresholdRule"
+          }
+        ],
+        "title": "Rule Parameters"
+      },
+      "starts_at": {
+        "format": "date-time",
+        "title": "Starts At",
+        "type": "string"
+      },
+      "type": {
+        "$ref": "#/components/schemas/CampaignType"
+      }
+    },
+    "required": [
+      "name",
+      "type",
+      "rule_parameters",
+      "reward_cost_paise",
+      "budget_cap_paise",
+      "starts_at",
+      "ends_at"
+    ],
+    "title": "CampaignCreate",
+    "type": "object"
+  },
+  "CampaignStatus": {
+    "enum": [
+      "DRAFT",
+      "APPROVED",
+      "ACTIVE",
+      "COMPLETED"
+    ],
+    "title": "CampaignStatus",
+    "type": "string"
+  },
+  "CampaignType": {
+    "enum": [
+      "NTH_PAYMENT",
+      "COLLECTION_THRESHOLD"
+    ],
+    "title": "CampaignType",
+    "type": "string"
+  },
+  "CampaignView": {
+    "additionalProperties": false,
+    "properties": {
+      "budget_cap_paise": {
+        "title": "Budget Cap Paise",
+        "type": "integer"
+      },
+      "consumed_paise": {
+        "title": "Consumed Paise",
+        "type": "integer"
+      },
+      "cumulative_paise": {
+        "title": "Cumulative Paise",
+        "type": "integer"
+      },
+      "eligible_count": {
+        "title": "Eligible Count",
+        "type": "integer"
+      },
+      "ends_at": {
+        "format": "date-time",
+        "title": "Ends At",
+        "type": "string"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "reserved_paise": {
+        "title": "Reserved Paise",
+        "type": "integer"
+      },
+      "reward_cost_paise": {
+        "title": "Reward Cost Paise",
+        "type": "integer"
+      },
+      "rewards_issued_count": {
+        "readOnly": true,
+        "title": "Rewards Issued Count",
+        "type": "integer"
+      },
+      "rule_parameters": {
+        "additionalProperties": {
+          "type": "integer"
+        },
+        "title": "Rule Parameters",
+        "type": "object"
+      },
+      "starts_at": {
+        "format": "date-time",
+        "title": "Starts At",
+        "type": "string"
+      },
+      "status": {
+        "$ref": "#/components/schemas/CampaignStatus"
+      },
+      "threshold_awarded": {
+        "title": "Threshold Awarded",
+        "type": "boolean"
+      },
+      "type": {
+        "$ref": "#/components/schemas/CampaignType"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "type",
+      "status",
+      "rule_parameters",
+      "reward_cost_paise",
+      "budget_cap_paise",
+      "consumed_paise",
+      "reserved_paise",
+      "starts_at",
+      "ends_at",
+      "eligible_count",
+      "cumulative_paise",
+      "threshold_awarded",
+      "rewards_issued_count"
+    ],
+    "title": "CampaignView",
+    "type": "object"
+  },
+  "ConsentInput": {
+    "additionalProperties": false,
+    "properties": {
+      "decision": {
+        "enum": [
+          "OPT_IN",
+          "OPT_OUT"
+        ],
+        "title": "Decision",
+        "type": "string"
+      },
+      "token": {
+        "maxLength": 100,
+        "minLength": 40,
+        "title": "Token",
+        "type": "string"
+      }
+    },
+    "required": [
+      "token",
+      "decision"
+    ],
+    "title": "ConsentInput",
+    "type": "object"
+  },
+  "CoverageBatch": {
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "items": {
+          "$ref": "#/components/schemas/CoverageDeclaration"
+        },
+        "maxItems": 366,
+        "minItems": 1,
+        "title": "Items",
+        "type": "array"
+      }
+    },
+    "required": [
+      "items"
+    ],
+    "title": "CoverageBatch",
+    "type": "object"
+  },
+  "CoverageDeclaration": {
+    "additionalProperties": false,
+    "properties": {
+      "date": {
+        "format": "date",
+        "title": "Date",
+        "type": "string"
+      },
+      "includes_simulated": {
+        "default": true,
+        "title": "Includes Simulated",
+        "type": "boolean"
+      },
+      "provenance": {
+        "maxLength": 200,
+        "minLength": 1,
+        "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+        "title": "Provenance",
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "COMPLETE",
+          "PARTIAL",
+          "UNKNOWN"
+        ],
+        "title": "Status",
+        "type": "string"
+      }
+    },
+    "required": [
+      "date",
+      "status",
+      "provenance"
+    ],
+    "title": "CoverageDeclaration",
+    "type": "object"
+  },
+  "CreditEventView": {
+    "additionalProperties": false,
+    "properties": {
+      "acknowledgement": {
+        "default": "PENDING",
+        "title": "Acknowledgement",
+        "type": "string"
+      },
+      "created_at": {
+        "format": "date-time",
+        "title": "Created At",
+        "type": "string"
+      },
+      "delta_paise": {
+        "title": "Delta Paise",
+        "type": "integer"
+      },
+      "due_date": {
+        "anyOf": [
+          {
+            "format": "date",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Due Date"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "kind": {
+        "title": "Kind",
+        "type": "string"
+      },
+      "note": {
+        "title": "Note",
+        "type": "string"
+      },
+      "reverses_id": {
+        "anyOf": [
+          {
+            "format": "uuid",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Reverses Id"
+      }
+    },
+    "required": [
+      "id",
+      "kind",
+      "delta_paise",
+      "due_date",
+      "note",
+      "reverses_id",
+      "created_at"
+    ],
+    "title": "CreditEventView",
+    "type": "object"
+  },
+  "CreditLedgerView": {
+    "additionalProperties": false,
+    "properties": {
+      "balance_paise": {
+        "title": "Balance Paise",
+        "type": "integer"
+      },
+      "customer": {
+        "$ref": "#/components/schemas/CustomerView"
+      },
+      "events": {
+        "items": {
+          "$ref": "#/components/schemas/CreditEventView"
+        },
+        "title": "Events",
+        "type": "array"
+      },
+      "overdue_paise": {
+        "title": "Overdue Paise",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "customer",
+      "balance_paise",
+      "overdue_paise",
+      "events"
+    ],
+    "title": "CreditLedgerView",
+    "type": "object"
+  },
+  "CreditPost": {
+    "additionalProperties": false,
+    "properties": {
+      "amount_paise": {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Amount Paise",
+        "type": "integer"
+      },
+      "due_date": {
+        "anyOf": [
+          {
+            "format": "date",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Due Date"
+      },
+      "note": {
+        "default": "",
+        "maxLength": 300,
+        "title": "Note",
+        "type": "string"
+      },
+      "request_key": {
+        "pattern": "^[A-Za-z0-9_-]{1,100}$",
+        "title": "Request Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "request_key",
+      "amount_paise"
+    ],
+    "title": "CreditPost",
+    "type": "object"
+  },
+  "CustomerCreate": {
+    "additionalProperties": false,
+    "properties": {
+      "email": {
+        "anyOf": [
+          {
+            "format": "email",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Email"
+      },
+      "name": {
+        "maxLength": 120,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "request_marketing_consent": {
+        "default": false,
+        "title": "Request Marketing Consent",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "name"
+    ],
+    "title": "CustomerCreate",
+    "type": "object"
+  },
+  "CustomerView": {
+    "additionalProperties": false,
+    "properties": {
+      "consent_at": {
+        "anyOf": [
+          {
+            "format": "date-time",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Consent At"
+      },
+      "email": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Email"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "marketing_opt_in": {
+        "title": "Marketing Opt In",
+        "type": "boolean"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "email",
+      "marketing_opt_in",
+      "consent_at"
+    ],
+    "title": "CustomerView",
+    "type": "object"
+  },
+  "DailyPoint": {
+    "additionalProperties": false,
+    "properties": {
+      "collections_paise": {
+        "minimum": 0.0,
+        "title": "Collections Paise",
+        "type": "integer"
+      },
+      "date": {
+        "format": "date",
+        "title": "Date",
+        "type": "string"
+      },
+      "successful_count": {
+        "minimum": 0.0,
+        "title": "Successful Count",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "date",
+      "collections_paise",
+      "successful_count"
+    ],
+    "title": "DailyPoint",
+    "type": "object"
+  },
+  "DashboardEnvelope": {
+    "additionalProperties": false,
+    "properties": {
+      "end_date": {
+        "format": "date",
+        "title": "End Date",
+        "type": "string"
+      },
+      "generation_mode": {
+        "enum": [
+          "REAL",
+          "UNAVAILABLE"
+        ],
+        "title": "Generation Mode",
+        "type": "string"
+      },
+      "includes_simulated": {
+        "title": "Includes Simulated",
+        "type": "boolean"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "result": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/MetricsResult"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "start_date": {
+        "format": "date",
+        "title": "Start Date",
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "AVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "title": "Status",
+        "type": "string"
+      },
+      "timezone": {
+        "title": "Timezone",
+        "type": "string"
+      }
+    },
+    "required": [
+      "status",
+      "generation_mode",
+      "start_date",
+      "end_date",
+      "timezone",
+      "includes_simulated",
+      "result",
+      "limitations"
+    ],
+    "title": "DashboardEnvelope",
+    "type": "object"
+  },
+  "DemoLogin": {
+    "additionalProperties": false,
+    "properties": {
+      "token": {
+        "maxLength": 100,
+        "minLength": 40,
+        "title": "Token",
+        "type": "string"
+      }
+    },
+    "required": [
+      "token"
+    ],
+    "title": "DemoLogin",
+    "type": "object"
+  },
+  "DevEmailView": {
+    "additionalProperties": false,
+    "properties": {
+      "body": {
+        "title": "Body",
+        "type": "string"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "recipient": {
+        "title": "Recipient",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "subject": {
+        "title": "Subject",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "recipient",
+      "subject",
+      "body",
+      "status"
+    ],
+    "title": "DevEmailView",
+    "type": "object"
+  },
+  "EmailInput": {
+    "additionalProperties": false,
+    "properties": {
+      "email": {
+        "format": "email",
+        "maxLength": 254,
+        "title": "Email",
+        "type": "string"
+      }
+    },
+    "required": [
+      "email"
+    ],
+    "title": "EmailInput",
+    "type": "object"
+  },
+  "ErrorBody": {
+    "additionalProperties": false,
+    "properties": {
+      "code": {
+        "title": "Code",
+        "type": "string"
+      },
+      "details": {
+        "title": "Details"
+      },
+      "message": {
+        "title": "Message",
+        "type": "string"
+      },
+      "request_id": {
+        "title": "Request Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "code",
+      "message",
+      "request_id"
+    ],
+    "title": "ErrorBody",
+    "type": "object"
+  },
+  "ErrorEnvelope": {
+    "additionalProperties": false,
+    "properties": {
+      "error": {
+        "$ref": "#/components/schemas/ErrorBody"
+      }
+    },
+    "required": [
+      "error"
+    ],
+    "title": "ErrorEnvelope",
+    "type": "object"
+  },
+  "EvaluationEnvelope": {
+    "additionalProperties": false,
+    "properties": {
+      "end_date": {
+        "format": "date",
+        "title": "End Date",
+        "type": "string"
+      },
+      "generation_mode": {
+        "enum": [
+          "REAL",
+          "UNAVAILABLE"
+        ],
+        "title": "Generation Mode",
+        "type": "string"
+      },
+      "includes_simulated": {
+        "title": "Includes Simulated",
+        "type": "boolean"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "result": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/ForecastEvaluationResult"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "start_date": {
+        "format": "date",
+        "title": "Start Date",
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "AVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "title": "Status",
+        "type": "string"
+      },
+      "timezone": {
+        "title": "Timezone",
+        "type": "string"
+      }
+    },
+    "required": [
+      "status",
+      "generation_mode",
+      "start_date",
+      "end_date",
+      "timezone",
+      "includes_simulated",
+      "result",
+      "limitations"
+    ],
+    "title": "EvaluationEnvelope",
+    "type": "object"
+  },
+  "ForecastEnvelope": {
+    "additionalProperties": false,
+    "properties": {
+      "end_date": {
+        "format": "date",
+        "title": "End Date",
+        "type": "string"
+      },
+      "generation_mode": {
+        "enum": [
+          "REAL",
+          "UNAVAILABLE"
+        ],
+        "title": "Generation Mode",
+        "type": "string"
+      },
+      "includes_simulated": {
+        "title": "Includes Simulated",
+        "type": "boolean"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "result": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/ForecastResult"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "start_date": {
+        "format": "date",
+        "title": "Start Date",
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "AVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "title": "Status",
+        "type": "string"
+      },
+      "timezone": {
+        "title": "Timezone",
+        "type": "string"
+      }
+    },
+    "required": [
+      "status",
+      "generation_mode",
+      "start_date",
+      "end_date",
+      "timezone",
+      "includes_simulated",
+      "result",
+      "limitations"
+    ],
+    "title": "ForecastEnvelope",
+    "type": "object"
+  },
+  "ForecastEvaluationResult": {
+    "additionalProperties": false,
+    "properties": {
+      "flat_baseline_mae_paise": {
+        "anyOf": [
+          {
+            "minimum": 0.0,
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Flat Baseline Mae Paise"
+      },
+      "holdout": {
+        "items": {
+          "$ref": "#/components/schemas/HoldoutPoint"
+        },
+        "title": "Holdout",
+        "type": "array"
+      },
+      "holdout_days": {
+        "minimum": 0.0,
+        "title": "Holdout Days",
+        "type": "integer"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "mae_paise": {
+        "anyOf": [
+          {
+            "minimum": 0.0,
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Mae Paise"
+      },
+      "method": {
+        "const": "WEEKDAY_MEAN_BASELINE",
+        "title": "Method",
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "AVAILABLE",
+          "INSUFFICIENT_DATA"
+        ],
+        "title": "Status",
+        "type": "string"
+      },
+      "training_days": {
+        "minimum": 0.0,
+        "title": "Training Days",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "status",
+      "method",
+      "training_days",
+      "holdout_days",
+      "mae_paise",
+      "flat_baseline_mae_paise",
+      "holdout",
+      "limitations"
+    ],
+    "title": "ForecastEvaluationResult",
+    "type": "object"
+  },
+  "ForecastPoint": {
+    "additionalProperties": false,
+    "properties": {
+      "collections_paise": {
+        "minimum": 0.0,
+        "title": "Collections Paise",
+        "type": "integer"
+      },
+      "date": {
+        "format": "date",
+        "title": "Date",
+        "type": "string"
+      }
+    },
+    "required": [
+      "date",
+      "collections_paise"
+    ],
+    "title": "ForecastPoint",
+    "type": "object"
+  },
+  "ForecastResult": {
+    "additionalProperties": false,
+    "properties": {
+      "forecast": {
+        "items": {
+          "$ref": "#/components/schemas/ForecastPoint"
+        },
+        "title": "Forecast",
+        "type": "array"
+      },
+      "history_days": {
+        "minimum": 0.0,
+        "title": "History Days",
+        "type": "integer"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "method": {
+        "const": "WEEKDAY_MEAN_BASELINE",
+        "title": "Method",
+        "type": "string"
+      },
+      "projected_total_paise": {
+        "anyOf": [
+          {
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Projected Total Paise"
+      },
+      "status": {
+        "enum": [
+          "AVAILABLE",
+          "INSUFFICIENT_DATA"
+        ],
+        "title": "Status",
+        "type": "string"
+      }
+    },
+    "required": [
+      "status",
+      "method",
+      "history_days",
+      "forecast",
+      "projected_total_paise",
+      "limitations"
+    ],
+    "title": "ForecastResult",
+    "type": "object"
+  },
+  "HealthView": {
+    "additionalProperties": false,
+    "properties": {
+      "service": {
+        "const": "bizbazaar-api",
+        "default": "bizbazaar-api",
+        "title": "Service",
+        "type": "string"
+      },
+      "status": {
+        "const": "ok",
+        "default": "ok",
+        "title": "Status",
+        "type": "string"
+      }
+    },
+    "title": "HealthView",
+    "type": "object"
+  },
+  "HoldoutPoint": {
+    "additionalProperties": false,
+    "properties": {
+      "actual_paise": {
+        "minimum": 0.0,
+        "title": "Actual Paise",
+        "type": "integer"
+      },
+      "date": {
+        "format": "date",
+        "title": "Date",
+        "type": "string"
+      },
+      "predicted_paise": {
+        "minimum": 0.0,
+        "title": "Predicted Paise",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "date",
+      "actual_paise",
+      "predicted_paise"
+    ],
+    "title": "HoldoutPoint",
+    "type": "object"
+  },
+  "ImportReport": {
+    "additionalProperties": false,
+    "properties": {
+      "conflicts": {
+        "title": "Conflicts",
+        "type": "integer"
+      },
+      "coverage_status": {
+        "const": "UNKNOWN",
+        "default": "UNKNOWN",
+        "title": "Coverage Status",
+        "type": "string"
+      },
+      "duplicates": {
+        "title": "Duplicates",
+        "type": "integer"
+      },
+      "imported": {
+        "title": "Imported",
+        "type": "integer"
+      },
+      "invalid": {
+        "title": "Invalid",
+        "type": "integer"
+      },
+      "issues": {
+        "items": {
+          "$ref": "#/components/schemas/RowIssue"
+        },
+        "title": "Issues",
+        "type": "array"
+      },
+      "issues_truncated": {
+        "title": "Issues Truncated",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "imported",
+      "invalid",
+      "duplicates",
+      "conflicts",
+      "issues",
+      "issues_truncated"
+    ],
+    "title": "ImportReport",
+    "type": "object"
+  },
+  "LoginInput": {
+    "additionalProperties": false,
+    "properties": {
+      "email": {
+        "format": "email",
+        "maxLength": 254,
+        "title": "Email",
+        "type": "string"
+      },
+      "password": {
+        "format": "password",
+        "maxLength": 128,
+        "minLength": 1,
+        "title": "Password",
+        "type": "string",
+        "writeOnly": true
+      }
+    },
+    "required": [
+      "email",
+      "password"
+    ],
+    "title": "LoginInput",
+    "type": "object"
+  },
+  "LoyaltyBalance": {
+    "additionalProperties": false,
+    "properties": {
+      "available_points": {
+        "title": "Available Points",
+        "type": "integer"
+      },
+      "balance_points": {
+        "title": "Balance Points",
+        "type": "integer"
+      },
+      "events": {
+        "items": {
+          "$ref": "#/components/schemas/LoyaltyEventView"
+        },
+        "title": "Events",
+        "type": "array"
+      }
+    },
+    "required": [
+      "balance_points",
+      "available_points",
+      "events"
+    ],
+    "title": "LoyaltyBalance",
+    "type": "object"
+  },
+  "LoyaltyEventView": {
+    "additionalProperties": false,
+    "properties": {
+      "created_at": {
+        "format": "date-time",
+        "title": "Created At",
+        "type": "string"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "kind": {
+        "title": "Kind",
+        "type": "string"
+      },
+      "points_delta": {
+        "title": "Points Delta",
+        "type": "integer"
+      },
+      "sale_id": {
+        "format": "uuid",
+        "title": "Sale Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "sale_id",
+      "points_delta",
+      "kind",
+      "created_at"
+    ],
+    "title": "LoyaltyEventView",
+    "type": "object"
+  },
+  "LoyaltySettings": {
+    "additionalProperties": false,
+    "properties": {
+      "earning_points": {
+        "default": 1,
+        "maximum": 10000.0,
+        "minimum": 1.0,
+        "title": "Earning Points",
+        "type": "integer"
+      },
+      "earning_spend_paise": {
+        "default": 10000,
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Earning Spend Paise",
+        "type": "integer"
+      },
+      "enabled": {
+        "default": false,
+        "title": "Enabled",
+        "type": "boolean"
+      },
+      "minimum_margin_bps": {
+        "default": 2000,
+        "maximum": 10000.0,
+        "minimum": 0.0,
+        "title": "Minimum Margin Bps",
+        "type": "integer"
+      },
+      "point_value_paise": {
+        "default": 100,
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Point Value Paise",
+        "type": "integer"
+      }
+    },
+    "title": "LoyaltySettings",
+    "type": "object"
+  },
+  "MessageView": {
+    "additionalProperties": false,
+    "properties": {
+      "message": {
+        "title": "Message",
+        "type": "string"
+      }
+    },
+    "required": [
+      "message"
+    ],
+    "title": "MessageView",
+    "type": "object"
+  },
+  "MetricsResult": {
+    "additionalProperties": false,
+    "properties": {
+      "average_payment_paise": {
+        "anyOf": [
+          {
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Average Payment Paise"
+      },
+      "collections_paise": {
+        "minimum": 0.0,
+        "title": "Collections Paise",
+        "type": "integer"
+      },
+      "daily_collections": {
+        "items": {
+          "$ref": "#/components/schemas/DailyPoint"
+        },
+        "title": "Daily Collections",
+        "type": "array"
+      },
+      "status_counts": {
+        "$ref": "#/components/schemas/StatusCounts"
+      },
+      "successful_count": {
+        "minimum": 0.0,
+        "title": "Successful Count",
+        "type": "integer"
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      },
+      "weekday_collections": {
+        "items": {
+          "$ref": "#/components/schemas/WeekdayPoint"
+        },
+        "title": "Weekday Collections",
+        "type": "array"
+      }
+    },
+    "required": [
+      "collections_paise",
+      "successful_count",
+      "average_payment_paise",
+      "status_counts",
+      "daily_collections",
+      "weekday_collections",
+      "warnings"
+    ],
+    "title": "MetricsResult",
+    "type": "object"
+  },
+  "NthRule": {
+    "additionalProperties": false,
+    "properties": {
+      "n": {
+        "maximum": 1000000.0,
+        "minimum": 1.0,
+        "title": "N",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "n"
+    ],
+    "title": "NthRule",
+    "type": "object"
+  },
+  "OfferCreate": {
+    "additionalProperties": false,
+    "properties": {
+      "budget_cap_paise": {
+        "maximum": 1000000000000.0,
+        "minimum": 0.0,
+        "title": "Budget Cap Paise",
+        "type": "integer"
+      },
+      "ends_at": {
+        "format": "date-time",
+        "title": "Ends At",
+        "type": "string"
+      },
+      "lines": {
+        "items": {
+          "$ref": "#/components/schemas/BasketLine"
+        },
+        "maxItems": 100,
+        "minItems": 1,
+        "title": "Lines",
+        "type": "array"
+      },
+      "max_redemptions": {
+        "maximum": 10000.0,
+        "minimum": 1.0,
+        "title": "Max Redemptions",
+        "type": "integer"
+      },
+      "minimum_margin_bps": {
+        "default": 2000,
+        "maximum": 10000.0,
+        "minimum": 0.0,
+        "title": "Minimum Margin Bps",
+        "type": "integer"
+      },
+      "name": {
+        "maxLength": 120,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "rule": {
+        "$ref": "#/components/schemas/OfferRule"
+      },
+      "starts_at": {
+        "format": "date-time",
+        "title": "Starts At",
+        "type": "string"
+      }
+    },
+    "required": [
+      "lines",
+      "rule",
+      "name",
+      "budget_cap_paise",
+      "max_redemptions",
+      "starts_at",
+      "ends_at"
+    ],
+    "title": "OfferCreate",
+    "type": "object"
+  },
+  "OfferEvaluate": {
+    "additionalProperties": false,
+    "properties": {
+      "lines": {
+        "items": {
+          "$ref": "#/components/schemas/BasketLine"
+        },
+        "maxItems": 100,
+        "minItems": 1,
+        "title": "Lines",
+        "type": "array"
+      },
+      "minimum_margin_bps": {
+        "default": 2000,
+        "maximum": 10000.0,
+        "minimum": 0.0,
+        "title": "Minimum Margin Bps",
+        "type": "integer"
+      },
+      "rule": {
+        "$ref": "#/components/schemas/OfferRule"
+      }
+    },
+    "required": [
+      "lines",
+      "rule"
+    ],
+    "title": "OfferEvaluate",
+    "type": "object"
+  },
+  "OfferQuote": {
+    "additionalProperties": false,
+    "properties": {
+      "cost_paise": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Cost Paise"
+      },
+      "discount_paise": {
+        "title": "Discount Paise",
+        "type": "integer"
+      },
+      "eligible": {
+        "title": "Eligible",
+        "type": "boolean"
+      },
+      "margin_bps": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Margin Bps"
+      },
+      "product_versions": {
+        "additionalProperties": {
+          "type": "integer"
+        },
+        "title": "Product Versions",
+        "type": "object"
+      },
+      "profit_paise": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Profit Paise"
+      },
+      "revenue_paise": {
+        "title": "Revenue Paise",
+        "type": "integer"
+      },
+      "subtotal_paise": {
+        "title": "Subtotal Paise",
+        "type": "integer"
+      },
+      "violations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Violations",
+        "type": "array"
+      }
+    },
+    "required": [
+      "subtotal_paise",
+      "discount_paise",
+      "revenue_paise",
+      "cost_paise",
+      "profit_paise",
+      "margin_bps",
+      "eligible",
+      "violations",
+      "product_versions"
+    ],
+    "title": "OfferQuote",
+    "type": "object"
+  },
+  "OfferRule": {
+    "additionalProperties": false,
+    "properties": {
+      "bundle_price_paise": {
+        "anyOf": [
+          {
+            "maximum": 1000000000000.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Bundle Price Paise"
+      },
+      "discount_paise": {
+        "default": 0,
+        "maximum": 1000000000000.0,
+        "minimum": 0.0,
+        "title": "Discount Paise",
+        "type": "integer"
+      },
+      "percentage_bps": {
+        "default": 0,
+        "maximum": 10000.0,
+        "minimum": 0.0,
+        "title": "Percentage Bps",
+        "type": "integer"
+      },
+      "threshold_paise": {
+        "anyOf": [
+          {
+            "maximum": 1000000000000.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Threshold Paise"
+      },
+      "type": {
+        "enum": [
+          "FIXED",
+          "PERCENT",
+          "BOGO",
+          "BUNDLE",
+          "THRESHOLD"
+        ],
+        "title": "Type",
+        "type": "string"
+      }
+    },
+    "required": [
+      "type"
+    ],
+    "title": "OfferRule",
+    "type": "object"
+  },
+  "OfferView": {
+    "additionalProperties": false,
+    "properties": {
+      "budget_cap_paise": {
+        "title": "Budget Cap Paise",
+        "type": "integer"
+      },
+      "discount_spent_paise": {
+        "title": "Discount Spent Paise",
+        "type": "integer"
+      },
+      "ends_at": {
+        "format": "date-time",
+        "title": "Ends At",
+        "type": "string"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "max_redemptions": {
+        "title": "Max Redemptions",
+        "type": "integer"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "quote": {
+        "$ref": "#/components/schemas/OfferQuote"
+      },
+      "redemption_count": {
+        "title": "Redemption Count",
+        "type": "integer"
+      },
+      "specification": {
+        "additionalProperties": true,
+        "title": "Specification",
+        "type": "object"
+      },
+      "starts_at": {
+        "format": "date-time",
+        "title": "Starts At",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "status",
+      "quote",
+      "specification",
+      "budget_cap_paise",
+      "max_redemptions",
+      "redemption_count",
+      "discount_spent_paise",
+      "starts_at",
+      "ends_at"
+    ],
+    "title": "OfferView",
+    "type": "object"
+  },
+  "OutboxView": {
+    "additionalProperties": false,
+    "properties": {
+      "attempts": {
+        "title": "Attempts",
+        "type": "integer"
+      },
+      "created_at": {
+        "format": "date-time",
+        "title": "Created At",
+        "type": "string"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "kind": {
+        "title": "Kind",
+        "type": "string"
+      },
+      "recipient": {
+        "title": "Recipient",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "subject": {
+        "title": "Subject",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "recipient",
+      "subject",
+      "kind",
+      "status",
+      "attempts",
+      "created_at"
+    ],
+    "title": "OutboxView",
+    "type": "object"
+  },
+  "Page_CampaignView_": {
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "items": {
+          "$ref": "#/components/schemas/CampaignView"
+        },
+        "title": "Items",
+        "type": "array"
+      },
+      "limit": {
+        "title": "Limit",
+        "type": "integer"
+      },
+      "offset": {
+        "title": "Offset",
+        "type": "integer"
+      },
+      "total": {
+        "title": "Total",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "total",
+      "limit",
+      "offset"
+    ],
+    "title": "Page[CampaignView]",
+    "type": "object"
+  },
+  "Page_CustomerView_": {
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "items": {
+          "$ref": "#/components/schemas/CustomerView"
+        },
+        "title": "Items",
+        "type": "array"
+      },
+      "limit": {
+        "title": "Limit",
+        "type": "integer"
+      },
+      "offset": {
+        "title": "Offset",
+        "type": "integer"
+      },
+      "total": {
+        "title": "Total",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "total",
+      "limit",
+      "offset"
+    ],
+    "title": "Page[CustomerView]",
+    "type": "object"
+  },
+  "Page_OfferView_": {
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "items": {
+          "$ref": "#/components/schemas/OfferView"
+        },
+        "title": "Items",
+        "type": "array"
+      },
+      "limit": {
+        "title": "Limit",
+        "type": "integer"
+      },
+      "offset": {
+        "title": "Offset",
+        "type": "integer"
+      },
+      "total": {
+        "title": "Total",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "total",
+      "limit",
+      "offset"
+    ],
+    "title": "Page[OfferView]",
+    "type": "object"
+  },
+  "Page_OutboxView_": {
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "items": {
+          "$ref": "#/components/schemas/OutboxView"
+        },
+        "title": "Items",
+        "type": "array"
+      },
+      "limit": {
+        "title": "Limit",
+        "type": "integer"
+      },
+      "offset": {
+        "title": "Offset",
+        "type": "integer"
+      },
+      "total": {
+        "title": "Total",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "total",
+      "limit",
+      "offset"
+    ],
+    "title": "Page[OutboxView]",
+    "type": "object"
+  },
+  "Page_ProductView_": {
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "items": {
+          "$ref": "#/components/schemas/ProductView"
+        },
+        "title": "Items",
+        "type": "array"
+      },
+      "limit": {
+        "title": "Limit",
+        "type": "integer"
+      },
+      "offset": {
+        "title": "Offset",
+        "type": "integer"
+      },
+      "total": {
+        "title": "Total",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "total",
+      "limit",
+      "offset"
+    ],
+    "title": "Page[ProductView]",
+    "type": "object"
+  },
+  "Page_RetentionView_": {
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "items": {
+          "$ref": "#/components/schemas/RetentionView"
+        },
+        "title": "Items",
+        "type": "array"
+      },
+      "limit": {
+        "title": "Limit",
+        "type": "integer"
+      },
+      "offset": {
+        "title": "Offset",
+        "type": "integer"
+      },
+      "total": {
+        "title": "Total",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "total",
+      "limit",
+      "offset"
+    ],
+    "title": "Page[RetentionView]",
+    "type": "object"
+  },
+  "Page_RewardView_": {
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "items": {
+          "$ref": "#/components/schemas/RewardView"
+        },
+        "title": "Items",
+        "type": "array"
+      },
+      "limit": {
+        "title": "Limit",
+        "type": "integer"
+      },
+      "offset": {
+        "title": "Offset",
+        "type": "integer"
+      },
+      "total": {
+        "title": "Total",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "total",
+      "limit",
+      "offset"
+    ],
+    "title": "Page[RewardView]",
+    "type": "object"
+  },
+  "Page_SaleView_": {
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "items": {
+          "$ref": "#/components/schemas/SaleView"
+        },
+        "title": "Items",
+        "type": "array"
+      },
+      "limit": {
+        "title": "Limit",
+        "type": "integer"
+      },
+      "offset": {
+        "title": "Offset",
+        "type": "integer"
+      },
+      "total": {
+        "title": "Total",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "total",
+      "limit",
+      "offset"
+    ],
+    "title": "Page[SaleView]",
+    "type": "object"
+  },
+  "Page_TransactionView_": {
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "items": {
+          "$ref": "#/components/schemas/TransactionView"
+        },
+        "title": "Items",
+        "type": "array"
+      },
+      "limit": {
+        "title": "Limit",
+        "type": "integer"
+      },
+      "offset": {
+        "title": "Offset",
+        "type": "integer"
+      },
+      "total": {
+        "title": "Total",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "items",
+      "total",
+      "limit",
+      "offset"
+    ],
+    "title": "Page[TransactionView]",
+    "type": "object"
+  },
+  "PasswordResetInput": {
+    "additionalProperties": false,
+    "properties": {
+      "password": {
+        "format": "password",
+        "maxLength": 128,
+        "minLength": 12,
+        "title": "Password",
+        "type": "string",
+        "writeOnly": true
+      },
+      "token": {
+        "maxLength": 100,
+        "minLength": 40,
+        "title": "Token",
+        "type": "string"
+      }
+    },
+    "required": [
+      "token",
+      "password"
+    ],
+    "title": "PasswordResetInput",
+    "type": "object"
+  },
+  "PaymentDecision": {
+    "additionalProperties": false,
+    "properties": {
+      "acceptance_sequence": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Acceptance Sequence"
+      },
+      "campaign_id": {
+        "anyOf": [
+          {
+            "format": "uuid",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Campaign Id"
+      },
+      "decision": {
+        "enum": [
+          "ISSUED",
+          "NOT_ELIGIBLE",
+          "SKIPPED_BUDGET",
+          "CAMPAIGN_INACTIVE"
+        ],
+        "title": "Decision",
+        "type": "string"
+      },
+      "eligible_count": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Eligible Count"
+      },
+      "event_id": {
+        "title": "Event Id",
+        "type": "string"
+      },
+      "is_simulated": {
+        "const": true,
+        "default": true,
+        "title": "Is Simulated",
+        "type": "boolean"
+      },
+      "remaining_budget_paise": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Remaining Budget Paise"
+      },
+      "reward_cost_paise": {
+        "default": 0,
+        "title": "Reward Cost Paise",
+        "type": "integer"
+      },
+      "reward_id": {
+        "anyOf": [
+          {
+            "format": "uuid",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Reward Id"
+      },
+      "transaction_id": {
+        "title": "Transaction Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "event_id",
+      "transaction_id",
+      "campaign_id",
+      "decision",
+      "reward_id",
+      "acceptance_sequence"
+    ],
+    "title": "PaymentDecision",
+    "type": "object"
+  },
+  "PaymentStatus": {
+    "enum": [
+      "SUCCESS",
+      "PENDING",
+      "FAILED",
+      "REFUNDED"
+    ],
+    "title": "PaymentStatus",
+    "type": "string"
+  },
+  "PortalDecision": {
+    "additionalProperties": false,
+    "properties": {
+      "decision": {
+        "enum": [
+          "ACKNOWLEDGED",
+          "DISPUTED"
+        ],
+        "title": "Decision",
+        "type": "string"
+      },
+      "event_id": {
+        "format": "uuid",
+        "title": "Event Id",
+        "type": "string"
+      },
+      "note": {
+        "default": "",
+        "maxLength": 300,
+        "title": "Note",
+        "type": "string"
+      }
+    },
+    "required": [
+      "event_id",
+      "decision"
+    ],
+    "title": "PortalDecision",
+    "type": "object"
+  },
+  "ProductCreate": {
+    "additionalProperties": false,
+    "properties": {
+      "active": {
+        "default": true,
+        "title": "Active",
+        "type": "boolean"
+      },
+      "name": {
+        "maxLength": 120,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "selling_price_paise": {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Selling Price Paise",
+        "type": "integer"
+      },
+      "sku": {
+        "pattern": "^[A-Za-z0-9_-]{1,100}$",
+        "title": "Sku",
+        "type": "string"
+      },
+      "stock_quantity": {
+        "anyOf": [
+          {
+            "maximum": 1000000.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Stock Quantity"
+      },
+      "unit_cost_paise": {
+        "anyOf": [
+          {
+            "maximum": 1000000000000.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Unit Cost Paise"
+      }
+    },
+    "required": [
+      "sku",
+      "name",
+      "selling_price_paise"
+    ],
+    "title": "ProductCreate",
+    "type": "object"
+  },
+  "ProductUpdate": {
+    "additionalProperties": false,
+    "properties": {
+      "active": {
+        "default": true,
+        "title": "Active",
+        "type": "boolean"
+      },
+      "name": {
+        "maxLength": 120,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "selling_price_paise": {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Selling Price Paise",
+        "type": "integer"
+      },
+      "sku": {
+        "pattern": "^[A-Za-z0-9_-]{1,100}$",
+        "title": "Sku",
+        "type": "string"
+      },
+      "stock_quantity": {
+        "anyOf": [
+          {
+            "maximum": 1000000.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Stock Quantity"
+      },
+      "unit_cost_paise": {
+        "anyOf": [
+          {
+            "maximum": 1000000000000.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Unit Cost Paise"
+      },
+      "version": {
+        "minimum": 1.0,
+        "title": "Version",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "sku",
+      "name",
+      "selling_price_paise",
+      "version"
+    ],
+    "title": "ProductUpdate",
+    "type": "object"
+  },
+  "ProductView": {
+    "additionalProperties": false,
+    "properties": {
+      "active": {
+        "default": true,
+        "title": "Active",
+        "type": "boolean"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "name": {
+        "maxLength": 120,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "selling_price_paise": {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Selling Price Paise",
+        "type": "integer"
+      },
+      "sku": {
+        "pattern": "^[A-Za-z0-9_-]{1,100}$",
+        "title": "Sku",
+        "type": "string"
+      },
+      "stock_quantity": {
+        "anyOf": [
+          {
+            "maximum": 1000000.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Stock Quantity"
+      },
+      "unit_cost_paise": {
+        "anyOf": [
+          {
+            "maximum": 1000000000000.0,
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Unit Cost Paise"
+      },
+      "version": {
+        "title": "Version",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "sku",
+      "name",
+      "selling_price_paise",
+      "id",
+      "version"
+    ],
+    "title": "ProductView",
+    "type": "object"
+  },
+  "PromotionSettings": {
+    "additionalProperties": false,
+    "properties": {
+      "budget_cap_paise": {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Budget Cap Paise",
+        "type": "integer"
+      },
+      "duration_days": {
+        "maximum": 90.0,
+        "minimum": 1.0,
+        "title": "Duration Days",
+        "type": "integer"
+      },
+      "reward_cost_paise": {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Reward Cost Paise",
+        "type": "integer"
+      },
+      "rule_parameters": {
+        "additionalProperties": {
+          "type": "integer"
+        },
+        "title": "Rule Parameters",
+        "type": "object"
+      },
+      "type": {
+        "enum": [
+          "NTH_PAYMENT",
+          "COLLECTION_THRESHOLD"
+        ],
+        "title": "Type",
+        "type": "string"
+      }
+    },
+    "required": [
+      "type",
+      "rule_parameters",
+      "reward_cost_paise",
+      "budget_cap_paise",
+      "duration_days"
+    ],
+    "title": "PromotionSettings",
+    "type": "object"
+  },
+  "RecommendationEnvelope": {
+    "additionalProperties": false,
+    "properties": {
+      "end_date": {
+        "format": "date",
+        "title": "End Date",
+        "type": "string"
+      },
+      "generation_mode": {
+        "enum": [
+          "REAL",
+          "UNAVAILABLE"
+        ],
+        "title": "Generation Mode",
+        "type": "string"
+      },
+      "includes_simulated": {
+        "title": "Includes Simulated",
+        "type": "boolean"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "result": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/RecommendationResult"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "start_date": {
+        "format": "date",
+        "title": "Start Date",
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "AVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "title": "Status",
+        "type": "string"
+      },
+      "timezone": {
+        "title": "Timezone",
+        "type": "string"
+      }
+    },
+    "required": [
+      "status",
+      "generation_mode",
+      "start_date",
+      "end_date",
+      "timezone",
+      "includes_simulated",
+      "result",
+      "limitations"
+    ],
+    "title": "RecommendationEnvelope",
+    "type": "object"
+  },
+  "RecommendationResult": {
+    "additionalProperties": false,
+    "properties": {
+      "data_sufficiency": {
+        "enum": [
+          "SUFFICIENT",
+          "INSUFFICIENT"
+        ],
+        "title": "Data Sufficiency",
+        "type": "string"
+      },
+      "explanation": {
+        "title": "Explanation",
+        "type": "string"
+      },
+      "generation_mode": {
+        "enum": [
+          "DETERMINISTIC_FALLBACK",
+          "EXTERNAL_LLM"
+        ],
+        "title": "Generation Mode",
+        "type": "string"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "source_metrics": {
+        "$ref": "#/components/schemas/MetricsResult"
+      },
+      "suggested_action": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/CampaignCreate"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "suggested_action",
+      "explanation",
+      "source_metrics",
+      "data_sufficiency",
+      "generation_mode",
+      "limitations"
+    ],
+    "title": "RecommendationResult",
+    "type": "object"
+  },
+  "RegisterInput": {
+    "additionalProperties": false,
+    "properties": {
+      "email": {
+        "format": "email",
+        "maxLength": 254,
+        "title": "Email",
+        "type": "string"
+      },
+      "merchant_name": {
+        "maxLength": 120,
+        "minLength": 1,
+        "title": "Merchant Name",
+        "type": "string"
+      },
+      "password": {
+        "format": "password",
+        "maxLength": 128,
+        "minLength": 12,
+        "title": "Password",
+        "type": "string",
+        "writeOnly": true
+      }
+    },
+    "required": [
+      "email",
+      "merchant_name",
+      "password"
+    ],
+    "title": "RegisterInput",
+    "type": "object"
+  },
+  "ReportView": {
+    "additionalProperties": false,
+    "properties": {
+      "campaign": {
+        "$ref": "#/components/schemas/CampaignView"
+      },
+      "is_simulated": {
+        "const": true,
+        "default": true,
+        "title": "Is Simulated",
+        "type": "boolean"
+      },
+      "issued_cost_paise": {
+        "title": "Issued Cost Paise",
+        "type": "integer"
+      },
+      "issued_count": {
+        "title": "Issued Count",
+        "type": "integer"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "observed_accepted_collections_paise": {
+        "title": "Observed Accepted Collections Paise",
+        "type": "integer"
+      },
+      "remaining_budget_paise": {
+        "title": "Remaining Budget Paise",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "campaign",
+      "issued_count",
+      "issued_cost_paise",
+      "remaining_budget_paise",
+      "observed_accepted_collections_paise",
+      "limitations"
+    ],
+    "title": "ReportView",
+    "type": "object"
+  },
+  "RetentionCreate": {
+    "additionalProperties": false,
+    "properties": {
+      "body": {
+        "maxLength": 1000,
+        "minLength": 1,
+        "title": "Body",
+        "type": "string"
+      },
+      "customer_ids": {
+        "items": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "maxItems": 100,
+        "minItems": 1,
+        "title": "Customer Ids",
+        "type": "array"
+      },
+      "inactive_days": {
+        "default": 30,
+        "maximum": 365.0,
+        "minimum": 7.0,
+        "title": "Inactive Days",
+        "type": "integer"
+      },
+      "name": {
+        "maxLength": 120,
+        "minLength": 1,
+        "title": "Name",
+        "type": "string"
+      },
+      "subject": {
+        "maxLength": 160,
+        "minLength": 1,
+        "pattern": "^[^\\r\\n]+$",
+        "title": "Subject",
+        "type": "string"
+      }
+    },
+    "required": [
+      "name",
+      "subject",
+      "body",
+      "customer_ids"
+    ],
+    "title": "RetentionCreate",
+    "type": "object"
+  },
+  "RetentionView": {
+    "additionalProperties": false,
+    "properties": {
+      "body": {
+        "title": "Body",
+        "type": "string"
+      },
+      "customer_ids": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Customer Ids",
+        "type": "array"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "inactive_days": {
+        "title": "Inactive Days",
+        "type": "integer"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "queued_count": {
+        "title": "Queued Count",
+        "type": "integer"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "subject": {
+        "title": "Subject",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "subject",
+      "body",
+      "inactive_days",
+      "customer_ids",
+      "status",
+      "queued_count"
+    ],
+    "title": "RetentionView",
+    "type": "object"
+  },
+  "ReversalInput": {
+    "additionalProperties": false,
+    "properties": {
+      "note": {
+        "maxLength": 300,
+        "minLength": 1,
+        "title": "Note",
+        "type": "string"
+      },
+      "request_key": {
+        "pattern": "^[A-Za-z0-9_-]{1,100}$",
+        "title": "Request Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "request_key",
+      "note"
+    ],
+    "title": "ReversalInput",
+    "type": "object"
+  },
+  "RewardView": {
+    "additionalProperties": false,
+    "properties": {
+      "campaign_id": {
+        "format": "uuid",
+        "title": "Campaign Id",
+        "type": "string"
+      },
+      "cost_paise": {
+        "title": "Cost Paise",
+        "type": "integer"
+      },
+      "created_at": {
+        "format": "date-time",
+        "title": "Created At",
+        "type": "string"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "status": {
+        "const": "SIMULATED_ISSUED",
+        "title": "Status",
+        "type": "string"
+      },
+      "transaction_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Transaction Id"
+      },
+      "transaction_pk": {
+        "format": "uuid",
+        "title": "Transaction Pk",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "campaign_id",
+      "transaction_pk",
+      "cost_paise",
+      "status",
+      "created_at"
+    ],
+    "title": "RewardView",
+    "type": "object"
+  },
+  "RowIssue": {
+    "additionalProperties": false,
+    "properties": {
+      "field": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Field"
+      },
+      "kind": {
+        "enum": [
+          "INVALID",
+          "DUPLICATE",
+          "CONFLICT"
+        ],
+        "title": "Kind",
+        "type": "string"
+      },
+      "reason": {
+        "title": "Reason",
+        "type": "string"
+      },
+      "row": {
+        "title": "Row",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "row",
+      "kind",
+      "reason"
+    ],
+    "title": "RowIssue",
+    "type": "object"
+  },
+  "SaleCreate": {
+    "additionalProperties": false,
+    "properties": {
+      "customer_id": {
+        "anyOf": [
+          {
+            "format": "uuid",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Customer Id"
+      },
+      "due_date": {
+        "anyOf": [
+          {
+            "format": "date",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Due Date"
+      },
+      "lines": {
+        "items": {
+          "$ref": "#/components/schemas/BasketLine"
+        },
+        "maxItems": 100,
+        "minItems": 1,
+        "title": "Lines",
+        "type": "array"
+      },
+      "offer_id": {
+        "anyOf": [
+          {
+            "format": "uuid",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Offer Id"
+      },
+      "payment_method": {
+        "default": "CASH",
+        "enum": [
+          "CASH",
+          "OTHER",
+          "CREDIT"
+        ],
+        "title": "Payment Method",
+        "type": "string"
+      },
+      "redeem_points": {
+        "default": 0,
+        "maximum": 1000000.0,
+        "minimum": 0.0,
+        "title": "Redeem Points",
+        "type": "integer"
+      },
+      "request_key": {
+        "pattern": "^[A-Za-z0-9_-]{1,100}$",
+        "title": "Request Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "lines",
+      "request_key"
+    ],
+    "title": "SaleCreate",
+    "type": "object"
+  },
+  "SaleView": {
+    "additionalProperties": false,
+    "properties": {
+      "cost_paise": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Cost Paise"
+      },
+      "created_at": {
+        "format": "date-time",
+        "title": "Created At",
+        "type": "string"
+      },
+      "customer_id": {
+        "anyOf": [
+          {
+            "format": "uuid",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Customer Id"
+      },
+      "discount_paise": {
+        "title": "Discount Paise",
+        "type": "integer"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "payment_method": {
+        "title": "Payment Method",
+        "type": "string"
+      },
+      "profit_paise": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Profit Paise"
+      },
+      "redeemed_points": {
+        "title": "Redeemed Points",
+        "type": "integer"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "subtotal_paise": {
+        "title": "Subtotal Paise",
+        "type": "integer"
+      },
+      "total_paise": {
+        "title": "Total Paise",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "customer_id",
+      "payment_method",
+      "status",
+      "subtotal_paise",
+      "discount_paise",
+      "total_paise",
+      "cost_paise",
+      "profit_paise",
+      "redeemed_points",
+      "created_at"
+    ],
+    "title": "SaleView",
+    "type": "object"
+  },
+  "SessionView": {
+    "additionalProperties": false,
+    "properties": {
+      "expires_at": {
+        "format": "date-time",
+        "title": "Expires At",
+        "type": "string"
+      },
+      "is_demo": {
+        "default": true,
+        "title": "Is Demo",
+        "type": "boolean"
+      },
+      "merchant_id": {
+        "format": "uuid",
+        "title": "Merchant Id",
+        "type": "string"
+      },
+      "merchant_name": {
+        "title": "Merchant Name",
+        "type": "string"
+      },
+      "timezone": {
+        "title": "Timezone",
+        "type": "string"
+      }
+    },
+    "required": [
+      "merchant_id",
+      "merchant_name",
+      "timezone",
+      "expires_at"
+    ],
+    "title": "SessionView",
+    "type": "object"
+  },
+  "SimulationPayment": {
+    "additionalProperties": false,
+    "properties": {
+      "amount_paise": {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Amount Paise",
+        "type": "integer"
+      },
+      "event_id": {
+        "pattern": "^[A-Za-z0-9_-]{1,100}$",
+        "title": "Event Id",
+        "type": "string"
+      },
+      "status": {
+        "$ref": "#/components/schemas/PaymentStatus",
+        "default": "SUCCESS"
+      },
+      "timestamp": {
+        "format": "date-time",
+        "title": "Timestamp",
+        "type": "string"
+      },
+      "transaction_id": {
+        "pattern": "^[A-Za-z0-9_-]{1,100}$",
+        "title": "Transaction Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "event_id",
+      "transaction_id",
+      "amount_paise",
+      "timestamp"
+    ],
+    "title": "SimulationPayment",
+    "type": "object"
+  },
+  "SlowPeriod": {
+    "additionalProperties": false,
+    "properties": {
+      "explanation": {
+        "title": "Explanation",
+        "type": "string"
+      },
+      "observed_complete_days": {
+        "minimum": 0.0,
+        "title": "Observed Complete Days",
+        "type": "integer"
+      },
+      "weekday": {
+        "maximum": 6.0,
+        "minimum": 0.0,
+        "title": "Weekday",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "weekday",
+      "observed_complete_days",
+      "explanation"
+    ],
+    "title": "SlowPeriod",
+    "type": "object"
+  },
+  "StatusCounts": {
+    "additionalProperties": false,
+    "properties": {
+      "failed": {
+        "minimum": 0.0,
+        "title": "Failed",
+        "type": "integer"
+      },
+      "pending": {
+        "minimum": 0.0,
+        "title": "Pending",
+        "type": "integer"
+      },
+      "refunded": {
+        "minimum": 0.0,
+        "title": "Refunded",
+        "type": "integer"
+      },
+      "success": {
+        "minimum": 0.0,
+        "title": "Success",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "success",
+      "pending",
+      "failed",
+      "refunded"
+    ],
+    "title": "StatusCounts",
+    "type": "object"
+  },
+  "SummaryEnvelope": {
+    "additionalProperties": false,
+    "properties": {
+      "end_date": {
+        "format": "date",
+        "title": "End Date",
+        "type": "string"
+      },
+      "generation_mode": {
+        "enum": [
+          "REAL",
+          "UNAVAILABLE"
+        ],
+        "title": "Generation Mode",
+        "type": "string"
+      },
+      "includes_simulated": {
+        "title": "Includes Simulated",
+        "type": "boolean"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "result": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/SummaryResult"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "start_date": {
+        "format": "date",
+        "title": "Start Date",
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "AVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "title": "Status",
+        "type": "string"
+      },
+      "timezone": {
+        "title": "Timezone",
+        "type": "string"
+      }
+    },
+    "required": [
+      "status",
+      "generation_mode",
+      "start_date",
+      "end_date",
+      "timezone",
+      "includes_simulated",
+      "result",
+      "limitations"
+    ],
+    "title": "SummaryEnvelope",
+    "type": "object"
+  },
+  "SummaryResult": {
+    "additionalProperties": false,
+    "properties": {
+      "data_sufficiency": {
+        "enum": [
+          "SUFFICIENT",
+          "INSUFFICIENT"
+        ],
+        "title": "Data Sufficiency",
+        "type": "string"
+      },
+      "date": {
+        "format": "date",
+        "title": "Date",
+        "type": "string"
+      },
+      "generation_mode": {
+        "enum": [
+          "DETERMINISTIC_FALLBACK",
+          "EXTERNAL_LLM"
+        ],
+        "title": "Generation Mode",
+        "type": "string"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "locale": {
+        "enum": [
+          "en-IN",
+          "hi-IN"
+        ],
+        "title": "Locale",
+        "type": "string"
+      },
+      "metrics": {
+        "$ref": "#/components/schemas/MetricsResult"
+      },
+      "summary_text": {
+        "title": "Summary Text",
+        "type": "string"
+      }
+    },
+    "required": [
+      "date",
+      "locale",
+      "summary_text",
+      "metrics",
+      "data_sufficiency",
+      "generation_mode",
+      "limitations"
+    ],
+    "title": "SummaryResult",
+    "type": "object"
+  },
+  "ThresholdRule": {
+    "additionalProperties": false,
+    "properties": {
+      "threshold_paise": {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000000000000.0,
+        "title": "Threshold Paise",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "threshold_paise"
+    ],
+    "title": "ThresholdRule",
+    "type": "object"
+  },
+  "TokenInput": {
+    "additionalProperties": false,
+    "properties": {
+      "token": {
+        "maxLength": 100,
+        "minLength": 40,
+        "title": "Token",
+        "type": "string"
+      }
+    },
+    "required": [
+      "token"
+    ],
+    "title": "TokenInput",
+    "type": "object"
+  },
+  "TransactionView": {
+    "additionalProperties": false,
+    "properties": {
+      "amount_paise": {
+        "title": "Amount Paise",
+        "type": "integer"
+      },
+      "currency": {
+        "const": "INR",
+        "title": "Currency",
+        "type": "string"
+      },
+      "id": {
+        "format": "uuid",
+        "title": "Id",
+        "type": "string"
+      },
+      "is_simulated": {
+        "title": "Is Simulated",
+        "type": "boolean"
+      },
+      "source": {
+        "enum": [
+          "CSV",
+          "SIMULATOR",
+          "MANUAL"
+        ],
+        "title": "Source",
+        "type": "string"
+      },
+      "status": {
+        "$ref": "#/components/schemas/PaymentStatus"
+      },
+      "timestamp": {
+        "format": "date-time",
+        "title": "Timestamp",
+        "type": "string"
+      },
+      "transaction_id": {
+        "title": "Transaction Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "transaction_id",
+      "amount_paise",
+      "currency",
+      "timestamp",
+      "status",
+      "source",
+      "is_simulated"
+    ],
+    "title": "TransactionView",
+    "type": "object"
+  },
+  "TrendsEnvelope": {
+    "additionalProperties": false,
+    "properties": {
+      "end_date": {
+        "format": "date",
+        "title": "End Date",
+        "type": "string"
+      },
+      "generation_mode": {
+        "enum": [
+          "REAL",
+          "UNAVAILABLE"
+        ],
+        "title": "Generation Mode",
+        "type": "string"
+      },
+      "includes_simulated": {
+        "title": "Includes Simulated",
+        "type": "boolean"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "result": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/TrendsResult"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "start_date": {
+        "format": "date",
+        "title": "Start Date",
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "AVAILABLE",
+          "UNAVAILABLE"
+        ],
+        "title": "Status",
+        "type": "string"
+      },
+      "timezone": {
+        "title": "Timezone",
+        "type": "string"
+      }
+    },
+    "required": [
+      "status",
+      "generation_mode",
+      "start_date",
+      "end_date",
+      "timezone",
+      "includes_simulated",
+      "result",
+      "limitations"
+    ],
+    "title": "TrendsEnvelope",
+    "type": "object"
+  },
+  "TrendsResult": {
+    "additionalProperties": false,
+    "properties": {
+      "average_value_decline_percent": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Average Value Decline Percent"
+      },
+      "limitations": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Limitations",
+        "type": "array"
+      },
+      "metrics": {
+        "$ref": "#/components/schemas/MetricsResult"
+      },
+      "slow_periods": {
+        "items": {
+          "$ref": "#/components/schemas/SlowPeriod"
+        },
+        "title": "Slow Periods",
+        "type": "array"
+      }
+    },
+    "required": [
+      "metrics",
+      "slow_periods",
+      "average_value_decline_percent",
+      "limitations"
+    ],
+    "title": "TrendsResult",
+    "type": "object"
+  },
+  "WeekdayPoint": {
+    "additionalProperties": false,
+    "properties": {
+      "collections_paise": {
+        "minimum": 0.0,
+        "title": "Collections Paise",
+        "type": "integer"
+      },
+      "observed_complete_days": {
+        "minimum": 0.0,
+        "title": "Observed Complete Days",
+        "type": "integer"
+      },
+      "weekday": {
+        "maximum": 6.0,
+        "minimum": 0.0,
+        "title": "Weekday",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "weekday",
+      "collections_paise",
+      "observed_complete_days"
+    ],
+    "title": "WeekdayPoint",
+    "type": "object"
+  }
+}

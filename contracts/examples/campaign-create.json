@@ -1,0 +1,9 @@
+{
+  "name": "Every third eligible payment",
+  "type": "NTH_PAYMENT",
+  "rule_parameters": {"n": 3},
+  "reward_cost_paise": 10000,
+  "budget_cap_paise": 10000,
+  "starts_at": "2026-11-06T09:00:00+05:30",
+  "ends_at": "2026-11-06T21:00:00+05:30"
+}

@@ -1,0 +1,12 @@
+{
+  "imported": 6,
+  "invalid": 1,
+  "duplicates": 1,
+  "conflicts": 0,
+  "issues": [
+    {"row": 8, "kind": "INVALID", "field": "amount_paise", "reason": "Invalid value for this field"},
+    {"row": 9, "kind": "DUPLICATE", "field": null, "reason": "Transaction ID already recorded"}
+  ],
+  "issues_truncated": false,
+  "coverage_status": "UNKNOWN"
+}

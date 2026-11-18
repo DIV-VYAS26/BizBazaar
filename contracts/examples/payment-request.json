@@ -1,0 +1,7 @@
+{
+  "event_id": "DEMO_EVENT_001",
+  "transaction_id": "DEMO_TRANSACTION_001",
+  "amount_paise": 100000,
+  "timestamp": "2026-11-06T10:00:00+05:30",
+  "status": "SUCCESS"
+}

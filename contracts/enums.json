@@ -1,0 +1,18 @@
+{
+  "payment_status": [
+    "SUCCESS",
+    "PENDING",
+    "FAILED",
+    "REFUNDED"
+  ],
+  "campaign_type": [
+    "NTH_PAYMENT",
+    "COLLECTION_THRESHOLD"
+  ],
+  "campaign_status": [
+    "DRAFT",
+    "APPROVED",
+    "ACTIVE",
+    "COMPLETED"
+  ]
+}
