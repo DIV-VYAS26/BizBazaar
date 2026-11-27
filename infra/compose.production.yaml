@@ -1,0 +1,91 @@
+# Prepared configuration only. Do not launch until the owner explicitly requests deployment.
+name: bizbazaar-production
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: bizbazaar_owner
+      POSTGRES_DB: bizbazaar
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_owner_password
+    secrets: [db_owner_password]
+    volumes: [database:/var/lib/postgresql/data]
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U bizbazaar_owner -d bizbazaar"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  migrate:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    profiles: [setup]
+    env_file: ../.env.production
+    environment:
+      DATABASE_URL: ${MIGRATION_DATABASE_URL:?Set the private owner database URL}
+    depends_on:
+      db: {condition: service_healthy}
+    command: [alembic, upgrade, head]
+  api:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    env_file: ../.env.production
+    environment:
+      APP_ENV: production
+      DEMO_ENABLED: "false"
+      COOKIE_SECURE: "true"
+      MAIL_DELIVERY_MODE: smtp
+      ANALYTICS_MODE: real
+    depends_on:
+      db: {condition: service_healthy}
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+  worker:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    env_file: ../.env.production
+    environment:
+      APP_ENV: production
+      DEMO_ENABLED: "false"
+      COOKIE_SECURE: "true"
+      MAIL_DELIVERY_MODE: smtp
+    command: [python, -m, app.services.worker]
+    depends_on: [api]
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+  web:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.web
+      args:
+        NEXT_PUBLIC_API_BASE_URL: /api/v1
+        NEXT_PUBLIC_DEMO_MODE: "false"
+    restart: unless-stopped
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+  proxy:
+    image: caddy:2-alpine
+    environment:
+      BIZBAZAAR_DOMAIN: ${BIZBAZAAR_DOMAIN:?Set your own domain}
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [api, web]
+    restart: unless-stopped
+secrets:
+  db_owner_password:
+    file: ../secrets/db_owner_password
+volumes:
+  database:
+  caddy_data:
+  caddy_config:

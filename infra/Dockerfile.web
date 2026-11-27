@@ -1,0 +1,14 @@
+FROM node:24-alpine
+ENV NEXT_TELEMETRY_DISABLED=1
+WORKDIR /srv
+COPY package.json package-lock.json ./
+COPY apps/web/package.json apps/web/package.json
+RUN npm ci --ignore-scripts --no-audit --no-fund
+COPY apps/web/ apps/web/
+ARG NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api/v1
+ARG NEXT_PUBLIC_DEMO_MODE=true
+ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL NEXT_PUBLIC_DEMO_MODE=$NEXT_PUBLIC_DEMO_MODE
+RUN npm run build --workspace=apps/web && chown -R node:node /srv/apps/web/.next
+USER node
+EXPOSE 3000
+CMD ["npm", "run", "start", "--workspace=apps/web"]
